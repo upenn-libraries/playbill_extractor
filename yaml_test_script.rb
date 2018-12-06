@@ -6,7 +6,7 @@ require 'json'
 
 require './script'
 
-PE = PlaybillExtractor.new('/Users/ggord/Desktop/Playbills_9970657833503681.xlsx')
+PE = PlaybillExtractor.new('test/fixtures/Playbills_9970657833503681.xlsx')
 
 pp PE.extract_event
 =begin
