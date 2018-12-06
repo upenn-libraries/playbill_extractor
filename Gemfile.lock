@@ -1,0 +1,36 @@
+GIT
+  remote: https://github.com/demery/xlsx_to_pqc.git
+  revision: 3cde50f44648fb97803c75a768abd2d159b2f170
+  branch: development
+  specs:
+    xlsx_to_pqc_xml (0.1.0.2)
+      nokogiri (~> 1.8.5)
+      rubyXL (~> 3.3.30)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.2)
+    method_source (0.9.2)
+    mini_portile2 (2.3.0)
+    nokogiri (1.8.5)
+      mini_portile2 (~> 2.3.0)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    rubyXL (3.3.31)
+      nokogiri (>= 1.4.4)
+      rubyzip (>= 1.1.6)
+    rubyzip (1.2.2)
+    yard (0.9.16)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  pry
+  xlsx_to_pqc_xml!
+  yard
+
+BUNDLED WITH
+   1.15.4

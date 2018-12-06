@@ -1,0 +1,22 @@
+---
+:sheet_name: bibID
+:sheet_position: 0
+:heading_type: column
+:attributes:
+- :attr: '@id'
+  :headings:
+  - 'Permanent Link'
+  :data_type: :uri
+  :required: true
+- :attr: call_number
+  :headings:
+  - 'Volume/Box Number raw'
+  :required: true
+- :attr: metadata_creator
+  :headings:
+  - 'Metadata Creator'
+  :required: true
+- :attr: date_created
+  :headings:
+  - 'Date Created'
+  :required: true

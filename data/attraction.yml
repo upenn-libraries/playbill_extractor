@@ -1,0 +1,19 @@
+---
+:sheet_name: Coming Attraction
+:heading_type: column
+:attributes:
+- :attr: title
+  :headings:
+  - 'Title'
+  :required: false
+  :heading_required: true
+- :attr: date_standard
+  :headings:
+  - 'Date Standard'
+- :attr: date_as_written
+  :headings:
+  - 'Date as Written'
+- :attr: Headliner
+  :headings:
+  - 'headliner'
+# date as own thing... multiple dates?

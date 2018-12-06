@@ -1,0 +1,13 @@
+---
+:sheet_name: Additional Text
+:heading_type: column
+:attributes:
+- :attr: advertisement
+  :headings:
+  - 'Advertisement' # multiples?
+- :attr: printer_publisher
+  :headings:
+  - 'Printer / Publisher'
+- :attr: additional_other
+  :headings:
+  - 'Other'

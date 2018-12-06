@@ -1,0 +1,58 @@
+---
+:sheet_name: Dante Alighieri
+:sheet_position: 1
+:heading_type: column
+:attributes:
+- :attr: date_as_written
+  :headings:
+  - 'Date As Written'
+  :required: true
+- :attr: date_standard
+  :headings:
+  - 'Date Standard'
+  :required: true
+
+
+
+- :attr: '@id'
+  :headings:
+  - 'Venue URI'
+  :required: true
+- :attr: venue_name
+  :headings:
+  - 'Venue Name'
+  :required: true
+- :attr: venue_identified_name
+  :headings:
+  - 'Venue Identified Name'
+- :attr: venue_location
+  :headings:
+  - 'Venue Address or Location'
+
+
+
+- :attr: occasion_as_stated
+  :headings:
+  - 'Occasion As Stated'
+- :attr: occasion_type
+  :headings:
+  - 'Occasion Type'
+
+
+- :attr: organization
+  :headings:
+  - 'Organization'
+- :attr: manager_name
+  :headings:
+  - 'Manager'
+
+
+- :attr: price
+  :headings:
+  - 'Ticket Price'
+- :attr: price_as_written
+  :headings:
+  - 'Ticket Value'
+- :attr: ticket_location
+  :headings:
+  - 'Ticket Location'
