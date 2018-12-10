@@ -4,11 +4,11 @@ require 'pry'
 require 'pp'
 require 'json'
 
-require './script'
+require './extractor'
 
 PE = PlaybillExtractor.new('test/fixtures/Playbills_9970657833503681.xlsx')
 
-pp PE.extract_event
+puts JSON.pretty_generate(PE.output_data) # PE.print_json #== PE.combine_information
 =begin
   config = YAML.load open('data/performance.yml').read
   config[:sheet_position] = 2

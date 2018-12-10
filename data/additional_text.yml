@@ -4,10 +4,13 @@
 :attributes:
 - :attr: advertisement
   :headings:
-  - 'Advertisement' # multiples?
+  - 'Advertisement'
+  :heading_required: true
 - :attr: printer_publisher
   :headings:
   - 'Printer / Publisher'
+  :heading_required: true
 - :attr: additional_other
   :headings:
   - 'Other'
+  :heading_required: true

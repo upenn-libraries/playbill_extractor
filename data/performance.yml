@@ -2,43 +2,44 @@
 :sheet_name: performance
 :heading_type: column
 :attributes:
-- :attr: title
-  :headings:
-  - 'Title'
-  :required: true
 - :attr: '@id'
   :headings:
   - 'Work URI'
-  :required: true
-- :attr: performance_description
+  :heading_required: true
+- :attr: title
+  :headings:
+  - 'Title'
+  :required: required
+- :attr: description
   :headings:
   - 'Performance Description'
+  :heading_required: true
 - :attr: attractions
   :headings:
   - 'Attractions'
+  :heading_required: true
 - :attr: performance_other
   :headings:
   - 'Other'
+  :heading_required: true
 
-- :attr: '@id'
+- :attr: '@id_contrib'
   :headings:
-    - 'Contributor URI'
-  :required: true
+  - 'Contributor URI'
+  :heading_required: true
 - :attr: contributor_type
   :headings:
-    - 'Type'
+   - 'Type'
   :required: true
 - :attr: contributor_name
   :headings:
-    - 'Name'
+  - 'Name'
   :required: true
 - :attr: character
   :headings:
     - 'Character'
+  :heading_required: true
 - :attr: headliner
   :headings:
   - 'Headliner'
-- :attr: junk
-  :headings:
-    - 'Junk'
-  # :heading_required: true
+  :heading_required: true
