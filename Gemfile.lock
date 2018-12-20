@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/demery/xlsx_to_pqc.git
-  revision: 8ea1078c9d6611e81242d1b0a507781d2af49990
+  revision: ae59347b27e9bce3114b72e9f227471cd8f60bcb
   branch: development
   specs:
-    xlsx_to_pqc_xml (0.1.0.4)
+    xlsx_to_pqc_xml (0.1.0.5)
       nokogiri (~> 1.8.5)
       rubyXL (~> 3.3.30)
 

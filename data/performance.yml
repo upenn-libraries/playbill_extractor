@@ -1,5 +1,5 @@
 ---
-:sheet_name: performance
+:sheet_name: Performance
 :heading_type: column
 :attributes:
 - :attr: '@id'
@@ -9,7 +9,8 @@
 - :attr: title
   :headings:
   - 'Title'
-  :required: required
+  :heading_required: true
+ # :requirement: required
 - :attr: description
   :headings:
   - 'Performance Description'
@@ -30,11 +31,13 @@
 - :attr: contributor_type
   :headings:
    - 'Type'
-  :required: true
+  :heading_required: true
+  :requirement: required
 - :attr: contributor_name
   :headings:
   - 'Name'
-  :required: true
+  :heading_required: true
+# :requirement: required
 - :attr: character
   :headings:
     - 'Character'

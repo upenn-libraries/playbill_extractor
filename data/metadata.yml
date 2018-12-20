@@ -7,16 +7,20 @@
   :headings:
   - 'Permanent Link'
   :data_type: :uri
-  :required: true
+  :requirement: required
+  :heading_required: true
 - :attr: call_number
   :headings:
   - 'Volume/Box Number raw'
-  :required: true
+  :requirement: required
+  :heading_required: true
 - :attr: metadata_creator
   :headings:
   - 'Metadata Creator'
-  :required: true
+  :requirement: required
+  :heading_required: true
 - :attr: date_created
   :headings:
   - 'Date Created'
-  :required: true
+  :requirement: required
+  :heading_required: true
