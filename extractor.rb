@@ -11,13 +11,9 @@ class PlaybillExtractor
   end
 
   def read_data(config_filename, sheet_position = nil)
-    config = load_config(config_filename)
+    config = YAML.load(open("data/#{config_filename}.yml").read)
     config[:sheet_position] = sheet_position if sheet_position
     get_sheet_data(config)
-  end
-
-  def load_config(file_name)
-    YAML.load(open("data/#{file_name}.yml").read)
   end
 
   def get_sheet_data(config)
@@ -129,8 +125,6 @@ class PlaybillExtractor
     end.to_h
   end
 
-
-
 # ====================================================================
 
   def combine_data
@@ -161,32 +155,26 @@ class PlaybillExtractor
     h
   end
 
-  def output_data
+  def get_result
     data = combine_data
     abort(@errors.join(?\n)) unless @errors.empty?
-    clean_hash(data)
-  end
 
-  def write_json_to_file
-    File.open "#{@path[0..-6]}.json", 'w+' do |f|
-      f.puts JSON.pretty_generate(output_data)
-    end
+    ExtractorResult.new clean_hash(data)
   end
 end
 
-# File.open 'file_name.json', 'w+' do |f|
-#   f.puts the_data.to_json
-# end
+ExtractorResult = Struct.new(:result) do 
+  def to_h
+    result
+  end
 
-# folder_path = path
-# xlsx_files  = Dir.entries(folder_path).select{ |e| e =~ /^[^\.~].*\.xlsx/ }
+  def to_json
+    JSON.pretty_generate(result)
+  end 
+end
 
-# xlsx_files.each do |file|
-#   puts "working on #{file}"
-#   file_path = folder_path + file
-#   pe = PlaybillExtractor.new(file_path)
-#   pe.write_json_to_file
-# end
+
+
 
 
 

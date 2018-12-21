@@ -1,17 +1,3 @@
-# require 'json'
-# require './extractor'
-
-# path = ARGV.first
-
-# abort 'No filepath given'        unless path
-# abort "No file found at #{path}" unless File.exist?(path)
-
-# puts JSON.pretty_generate(PlaybillExtractor.new(path).output_data)
-
-
-
-
-# ........................
 require './extractor'
 
 folder_path = ARGV.first
@@ -35,6 +21,4 @@ xlsx_files.each_with_index do |file, i|
   puts "	saved JSON"# (#{percent}% done)"
 end
 
-
-####
 
