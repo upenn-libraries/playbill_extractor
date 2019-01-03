@@ -6,19 +6,33 @@ abort 'No folder given'                   unless folder_path
 abort "No folder found at #{folder_path}" unless Dir.exist?(folder_path)
 
 xlsx_files  = Dir.entries(folder_path).select{ |e| e =~ /^[^\.~].*\.xlsx$/ }
-
 total = xlsx_files.size 
+
+errors = []
 
 xlsx_files.each_with_index do |file, i|
   print "extracting from #{file} (#{i + 1}/#{total})..."
+  print ' ' * [(40 - file.length), 0].max
+  
   file_path = folder_path + file
-  p_e = PlaybillExtractor.new(file_path)
+  result    = PlaybillExtractor.new(file_path).get_result
 
-  File.open "#{file_path[0..-6]}.json", 'w+' do |f|
-    f.puts p_e.get_result.to_json
+  if result.is_a?(ExtractorResult)
+  	 File.open("#{file_path[0..-6]}.json", 'w+'){ |f| f.puts result.to_json }
+  	 puts "	saved JSON"
+  else
+  	errors << [file, result]
+  	puts " FOUND #{result.length} ERRORS"
   end
-  # percent = ((i + 1).to_f / total * 100).round
-  puts "	saved JSON"# (#{percent}% done)"
+end
+
+if errors.any?
+	puts ''
+	puts '======================= ERRORS ======================='
+	errors.each do |group|
+		puts ?\n + group.first
+		group.last.each{ |e| puts e }
+	end
 end
 
 

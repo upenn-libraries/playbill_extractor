@@ -20,17 +20,10 @@ class PlaybillExtractor
     xlsx_data = XlsxToPqcXml::XlsxData.new(xlsx_path: @path, config: config)
     return xlsx_data.data if xlsx_data.valid?
 
-    xlsx_data.errors.each do |key,list|
+    xlsx_data.errors.each do |key, list|
 
       sheet_name = "Performance #{config[:sheet_position] - 1}" if config[:sheet_name] == 'Performance'
       sheet_name ||= config[:sheet_name]
-
-      # list.each do |struct|
-      #   msg = "ERROR -- [#{sheet_name}]: #{key} "
-      #   msg += "location #{struct.address}; " if struct.address
-      #   msg += struct.text
-      #   $stderr.puts msg
-      # end
 
       list.each do |struct|
         msg =
@@ -46,7 +39,7 @@ class PlaybillExtractor
   end
 
   def add_error(sheet_name, msg)
-    error_string =  "ERROR -- [#{sheet_name}]#{msg}"
+    error_string =  "  -- [#{sheet_name}]#{msg}"
     @errors << error_string
   end
 
@@ -97,10 +90,8 @@ class PlaybillExtractor
   def extract_performance(performance_number)
     data = read_data('performance', 1 + performance_number)
     return {} unless data
+    
     details = extract_subhash(data.first, %i(@id title performance_description attractions performance_other))
-
-    # add_error("Performance #{performance_number}", ': required value missing (Title)') unless details[:title]
-
     contributors = data.map{ |record| extract_subhash(record, %i(@id_contrib contributor_type contributor_name character headliner)) }
     details.merge({contributor: contributors})
   end
@@ -157,9 +148,7 @@ class PlaybillExtractor
 
   def get_result
     data = combine_data
-    abort(@errors.join(?\n)) unless @errors.empty?
-
-    ExtractorResult.new clean_hash(data)
+    @errors.empty? ? ExtractorResult.new(clean_hash(data)) : @errors
   end
 end
 
