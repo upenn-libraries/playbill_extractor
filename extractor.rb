@@ -21,10 +21,8 @@ class PlaybillExtractor
     return xlsx_data.data if xlsx_data.valid?
 
     xlsx_data.errors.each do |key, list|
-
       sheet_name = "Performance #{config[:sheet_position] - 1}" if config[:sheet_name] == 'Performance'
       sheet_name ||= config[:sheet_name]
-
       list.each do |struct|
         msg =
           case key
@@ -46,6 +44,10 @@ class PlaybillExtractor
 # ====================================================================
 
   def extract_subhash(hash, syms = [])
+    unless hash
+    #  puts "\ngot empty sheet"
+      return {}
+    end
     sh1 = hash.select{ |k| syms.include?(k) }
     sh2 = sh1.inject({}) do |result, pair|
       pair[0] = :@id if pair.first.to_s =~ /^@id/
@@ -68,17 +70,20 @@ class PlaybillExtractor
 
     formatted_details = {
       date: extract_subhash(details, %i(date_standard date_as_written)),
-      venue: extract_subhash(details, %i(@id venue_name venue_identified_name venue_location)),
+    # venue: extract_subhash(details, %i(@id venue_name venue_identified_name venue_location)),
       occasion: details.select{ |k| k == :occasion_type },
       organization: details[:organization]
     }
 
-    add_error('Show', ': required value missing (Venue Name)' )   unless formatted_details[:venue][:venue_name]
-    add_error('Show', ': required value missing (Venue Address or Location)') unless formatted_details[:venue][:venue_location]
+    # add_error('Show', ': required value missing (Venue Name)' )   unless formatted_details[:venue][:venue_name]
+    # add_error('Show', ': required value missing (Venue Address or Location)') unless formatted_details[:venue][:venue_location]
 
+    venue     = data.map{ |record| extract_subhash(record, %i(@id venue_name venue_identified_name venue_location)) }
+    add_error('Show', ': required value missing (Venue Name)' )   unless venue.first[:venue_name]
+    add_error('Show', ': required value missing (Venue Address or Location)') unless venue.first[:venue_location]
     manager   = data.map{ |record| record[:manager_name] }.compact
     ticketing = data.map{ |record| extract_subhash(record, %i(price price_as_written ticket_location)) }
-    formatted_details.merge(manager: manager, ticketing: ticketing, performance: assemble_performances)
+    formatted_details.merge(venue: venue, manager: manager, ticketing: ticketing, performance: assemble_performances)
   end
 
   def assemble_performances
@@ -90,8 +95,9 @@ class PlaybillExtractor
   def extract_performance(performance_number)
     data = read_data('performance', 1 + performance_number)
     return {} unless data
-    
+
     details = extract_subhash(data.first, %i(@id title performance_description attractions performance_other))
+
     contributors = data.map{ |record| extract_subhash(record, %i(@id_contrib contributor_type contributor_name character headliner)) }
     details.merge({contributor: contributors})
   end
@@ -129,21 +135,61 @@ class PlaybillExtractor
     }
   end
 
-  def clean_hash(h)
-    h.keys.each do |k|
-      val = h[k]
-      next (h.delete(k)) if  val.nil? || val.empty?
+  # def clean_hash(h)
+  #   h.keys.each do |k|
+  #     val = h[k]
+  #     next (h.delete(k)) if val.nil? || val.empty?
 
+  #     case val
+  #     when Hash
+  #       h.delete(k) if clean_hash(val).empty?
+  #     when Array
+  #       val.each do |e|
+  #       if e.nil? || e.empty?
+  #         val.delete(e)
+  #       elsif e.is_a?(Hash)
+  #         val.delete(e) if clean_hash(e).empty?
+  #       end
+  #     end
+  #     when String
+  #       val.strip.empty? && h.delete(k)
+  #     end
+  #   end
+  # end
+
+
+  def clean_hash(hash)
+    for_deletion = []
+    hash.each do |key, val|
       case val
       when Hash
-        clean_hash(val)
+        for_deletion << key if clean_hash(val).empty?
       when Array
-        val.each{ |e| clean_hash(e) if e.is_a?(Hash) }
+        for_deletion << key if clean_array(val).empty?
       when String
-        val.strip.empty? && h.delete(k)
+        for_deletion << key if val.strip.empty?
+      when NilClass
+        for_deletion << key
       end
     end
-    h
+    for_deletion.each{ |k| hash.delete(k)}
+    hash
+  end
+
+  def clean_array(array)
+    for_deletion = []
+    array.each do |entry|
+      case entry
+      when Hash
+        for_deletion << entry if clean_hash(entry).empty?
+      when Array
+        for_deletion << entry if clean_array(entry).empty?
+      when String
+        for_deletion << entry if entry.strip.empty?
+      end
+    end
+    for_deletion.each{ |e| array.delete(e)}
+    array.compact
   end
 
   def get_result
@@ -152,14 +198,14 @@ class PlaybillExtractor
   end
 end
 
-ExtractorResult = Struct.new(:result) do 
+ExtractorResult = Struct.new(:result) do
   def to_h
     result
   end
 
   def to_json
     JSON.pretty_generate(result)
-  end 
+  end
 end
 
 
