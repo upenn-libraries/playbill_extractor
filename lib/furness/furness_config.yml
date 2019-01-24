@@ -1,0 +1,183 @@
+---
+:sheet_name: Exported Records
+:sheet_position: 0
+:heading_type: row
+:attributes:
+- :attr: media_url
+  :headings:
+  - Media URL
+- :attr: ssid
+  :headings:
+  - SSID
+- :attr: filename
+  :headings:
+  - Filename
+- :attr: creation_discovery_site
+  :headings:
+  - Creation/Discovery Site[65249]
+- :attr: country
+  :headings:
+  - Country[65253]
+- :attr: id_number
+  :headings:
+  - ID Number
+- :attr: creator
+  :headings:
+  - Creator[65233]
+- :attr: creator_uri
+  :headings:
+  - Creator URI
+- :attr: title
+  :headings:
+  - Title[65235]
+- :attr: title_uri
+  :headings:
+  - Title URI
+- :attr: description
+  :headings:
+  - Description[65254]
+- :attr: description_uri
+  :headings:
+  - Description URI
+- :attr: actor_character
+  :headings:
+  - Actor/Character[65457]
+- :attr: actor_character_uri
+  :headings:
+  - Actor/Character URI
+- :attr: related_agent
+  :headings:
+  - Related Agent[65459]
+- :attr: related_agent_uri
+  :headings:
+  - Related Agent URI
+- :attr: play
+  :headings:
+  - Play[65460]
+- :attr: date
+  :headings:
+  - Date[65238]
+- :attr: date_range
+  :headings:
+  - Date Range
+- :attr: earliest_date
+  :headings:
+  - Earliest Date[65239]
+- :attr: latest_date
+  :headings:
+  - Latest Date[65240]
+- :attr: style_period
+  :headings:
+  - Style/Period[65241]
+- :attr: materials_techniques
+  :headings:
+  - Materials/Techniques[65242]
+- :attr: measurements
+  :headings:
+  - Measurements[65243]
+- :attr: artstor_classification
+  :headings:
+  - Artstor Classification[65244]
+- :attr: work_type
+  :headings:
+  - Work Type[65245]
+- :attr: repository
+  :headings:
+  - Repository[65246]
+- :attr: subject
+  :headings:
+  - Subject[65255]
+- :attr: relationships
+  :headings:
+  - Relationships[65256]
+- :attr: source
+  :headings:
+  - Source[65257]
+- :attr: legacy_bibliography_number
+  :headings:
+  - Legacy Bibliography Number[65456]
+- :attr: donor_statement
+  :headings:
+  - Donor Statement [65458]
+- :attr: image_view_description
+  :headings:
+  - Image View Description
+
+# Image
+#   Digital Facsimile
+#     Media URL
+#     SSID
+#     Filename
+#     Creation/Discovery Site
+#     ID Number
+#   Collection Object
+#     Creator
+#       Creator URI
+#     Title
+#       Title URI
+#     Description
+#       Description URI
+#     Actor/Character
+#     Actor/Character URI
+#     Related Agent
+#       Related Agent URI
+#     Play
+#     Date
+#     Date Range
+#     Earliest Date
+#     Latest Date
+#     Style/Period
+#     Materials/Techniques
+#     Measurements
+#     Artstor Classification
+#     Work Type
+#     Repository
+#     Subject
+#     Relationships
+#     Source
+#     Legacy Bibliography Number
+#     Donor Statement
+#     Image View Description
+
+
+
+
+
+
+#   Media URL
+#   SSID
+#   Filename
+#   Creation/Discovery Site
+#   ID Number
+#   Creator
+#   Creator URI
+#   Title
+#   Title URI
+#   Description
+#   Description URI
+#   Actor/Character
+#   Actor/Character URI
+#   Related Agent
+#   Related Agent URI
+#   Play
+#   Date
+#   Date Range
+#   Earliest Date
+#   Latest Date
+#   Style/Period
+#   Materials/Techniques
+#   Measurements
+#   Artstor Classification
+#   Work Type
+#   Repository
+#   Subject
+#   Relationships
+#   Source
+#   Legacy Bibliography Number
+#   Donor Statement
+#   Image View Description
+
+# - :attr: #{SNAKE_CASE[a]}
+#   :headings:
+#   - #{a}
+
