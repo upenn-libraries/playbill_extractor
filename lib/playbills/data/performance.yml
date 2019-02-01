@@ -10,7 +10,6 @@
   :headings:
   - 'Title'
   :heading_required: true
- # :requirement: required
 - :attr: description
   :headings:
   - 'Performance Description'

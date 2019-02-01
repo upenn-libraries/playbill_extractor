@@ -20,7 +20,6 @@
   :headings:
   - 'Venue Name'
   :heading_required: true
-# :requirement: required
 - :attr: venue_identified_name
   :headings:
   - 'Venue Identified Name'
@@ -29,7 +28,6 @@
   :headings:
   - 'Venue Address or Location'
   :heading_required: true
-# :requirement: required
 
 - :attr: occasion_as_stated
   :headings:

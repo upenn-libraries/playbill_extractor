@@ -1,0 +1,15 @@
+Navigate to playbill_extractor/bin to run the scripts.
+
+
+Install gems with: 'bundle install'
+
+
+Run the playbill extractor:
+
+'bundle exec ruby playbill_script.rb [path to folder of xlsx files]'
+
+
+
+Run the Furness image extractor:
+
+'bundle exec ruby furness_script.rb [path to xlsx file]'

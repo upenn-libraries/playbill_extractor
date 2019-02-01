@@ -2,8 +2,6 @@ require_relative '../extractor'
 
 class PlaybillExtractor < XlsxDataExtractor
   def initialize(xlsx_path)
-    # @errors = []
-    # @path = xlsx_path
     super(xlsx_path)
     sheetnames = RubyXL::Parser.parse(@path).worksheets.map(&:sheet_name)
     @performance_count = sheetnames.grep(/Performance [1-9]/).size
@@ -38,10 +36,7 @@ class PlaybillExtractor < XlsxDataExtractor
 # ====================================================================
 
   def extract_subhash(hash, syms = [])
-    unless hash
-    #  puts "\ngot empty sheet"
-      return {}
-    end
+    return {} unless hash
     sh1 = hash.select{ |k| syms.include?(k) }
     sh2 = sh1.inject({}) do |result, pair|
       pair[0] = :@id if pair.first.to_s =~ /^@id/
@@ -64,17 +59,13 @@ class PlaybillExtractor < XlsxDataExtractor
 
     formatted_details = {
       date: extract_subhash(details, %i(date_standard date_as_written)),
-    # venue: extract_subhash(details, %i(@id venue_name venue_identified_name venue_location)),
       occasion: details.select{ |k| k == :occasion_type },
       organization: details[:organization]
     }
 
-    # add_error('Show', ': required value missing (Venue Name)' )   unless formatted_details[:venue][:venue_name]
-    # add_error('Show', ': required value missing (Venue Address or Location)') unless formatted_details[:venue][:venue_location]
-
     venue     = data.map{ |record| extract_subhash(record, %i(@id venue_name venue_identified_name venue_location)) }
-    add_error('Show', ': required value missing (Venue Name)' )   unless venue.first[:venue_name]
-    add_error('Show', ': required value missing (Venue Address or Location)') unless venue.first[:venue_location]
+  # add_error('Show', ': required value missing (Venue Name)' )   unless venue.first[:venue_name]
+  # add_error('Show', ': required value missing (Venue Address or Location)') unless venue.first[:venue_location]
     manager   = data.map{ |record| record[:manager_name] }.compact
     ticketing = data.map{ |record| extract_subhash(record, %i(price price_as_written ticket_location)) }
     formatted_details.merge(venue: venue, manager: manager, ticketing: ticketing, performance: assemble_performances)

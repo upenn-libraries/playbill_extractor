@@ -5,9 +5,3 @@ source 'https://rubygems.org'
 # end
 
 gem 'yard'
-
-gem 'pry'
-
-# gem 'yaml'
-
-gem 'json'

@@ -12,22 +12,6 @@ class FurnessExtractor < XlsxDataExtractor
     return xlsx_data.data if xlsx_data.valid?
 
     puts xlsx_data.errors
-    # xlsx_data.errors.each do |key, list|
-
-    #   sheet_name = "Performance #{config[:sheet_position] - 1}" if config[:sheet_name] == 'Performance'
-    #   sheet_name ||= config[:sheet_name]
-
-    #   list.each do |struct|
-    #     msg =
-    #       case key
-    #       when :required_header_missing then ": required header missing #{struct.text[/\(.*\)/]}"
-    #       when :required_value_missing then "(#{struct.address}): required value missing #{struct.text[/\(.*\)/]}"
-    #       else "(#{struct.address}) #{key} #{struct.text}"
-    #       end
-    #     add_error(sheet_name, msg)
-    #   end
-    # end
-    # nil
   end
 
   def purge_non_URI(data)
@@ -45,7 +29,7 @@ class FurnessExtractor < XlsxDataExtractor
   end
 
   def grand_combine(records)
-    {stuff: records.map{ |record| clean_hash(combine_data(purge_non_URI(record))) }}
+    {furness_image_dataset: records.map{ |record| clean_hash(combine_data(purge_non_URI(record))) }}
   end
 
   def combine_data(data)
@@ -65,11 +49,6 @@ class FurnessExtractor < XlsxDataExtractor
             '@id': data[:title_URI],
             title_text: data[:title]
           },
-
-          # description: { # sometimes pipes
-          #   '@id': data[:description_URI],
-          #   description_text:  data[:description]
-          # },
 
           description: pair_description(data[:description],data[:description_URI]),
 
@@ -114,6 +93,7 @@ class FurnessExtractor < XlsxDataExtractor
 
   def pair_description(descrip, ids)
     (0...(ids ? ids.length : 0)).map do |index|
+      next({}) if (ids.length > 1) && ids[index].nil?
       {'@id': ids && ids[index], description_text: descrip}
     end
   end
