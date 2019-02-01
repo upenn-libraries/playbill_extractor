@@ -1,5 +1,6 @@
-require_relative '../lib/playbills/extractor'
-require 'pry'
+require 'pry' #########
+require 'json' #
+require_relative '../lib/playbills/playbill_extractor'
 
 folder_path = ARGV.first
 
@@ -10,20 +11,28 @@ xlsx_files = Dir.entries(folder_path).select{ |e| e =~ /^[^\.~].*\.xlsx$/ }
 total = xlsx_files.size
 errors = []
 
+stuffs = [] ######
+
 xlsx_files.each_with_index do |file, i|
   print "extracting from #{file} (#{i + 1}/#{total})..."
   print ' ' * [(40 - file.length), 0].max
 
-  file_path = folder_path + file;  # next(print ?\n) if File.exist?("#{file_path[0..-6]}.json")
+  file_path = folder_path + file;  # next(print ?\n) if File.exist?("#{file_path[0..-6]}.json") ########
   result    = PlaybillExtractor.new(file_path).get_result
 
   if result.is_a?(ExtractorResult)
-  	File.open("#{file_path[0..-6]}.json", 'w+'){ |f| f.puts result.to_json }
-  	puts "	saved JSON"
+  	# File.open("#{file_path[0..-6]}.json", 'w+'){ |f| f.puts result.to_json }
+  	# puts "	saved JSON"
+    stuffs << result.to_h
+    puts 'extracted data'
   else
   	errors << [file, result]
   	puts " FOUND #{result.length} ERRORS"
   end
+end
+
+File.open("#{folder_path}/result.json", 'w+') do |f|
+  f.puts JSON.pretty_generate({stuffs: stuffs}) ######
 end
 
 if errors.any?
@@ -34,3 +43,5 @@ if errors.any?
 		group.last.each{ |e| puts e }
 	end
 end
+
+

@@ -7,3 +7,7 @@ source 'https://rubygems.org'
 gem 'yard'
 
 gem 'pry'
+
+# gem 'yaml'
+
+gem 'json'

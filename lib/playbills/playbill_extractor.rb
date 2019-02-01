@@ -1,17 +1,16 @@
-require 'xlsx_to_pqc_xml'
-require 'yaml'
-require 'json'
+require_relative '../extractor'
 
-class PlaybillExtractor
-  def initialize(path)
-    @errors = []
-    @path = path
+class PlaybillExtractor < XlsxDataExtractor
+  def initialize(xlsx_path)
+    # @errors = []
+    # @path = xlsx_path
+    super(xlsx_path)
     sheetnames = RubyXL::Parser.parse(@path).worksheets.map(&:sheet_name)
     @performance_count = sheetnames.grep(/Performance [1-9]/).size
   end
 
   def read_data(config_filename, sheet_position = nil)
-    config = YAML.load(open("data/#{config_filename}.yml").read)
+    config = YAML.load(open("../lib/playbills/data/#{config_filename}.yml").read)
     config[:sheet_position] = sheet_position if sheet_position
     get_sheet_data(config)
   end
@@ -34,11 +33,6 @@ class PlaybillExtractor
       end
     end
     nil
-  end
-
-  def add_error(sheet_name, msg)
-    error_string =  "  -- [#{sheet_name}]#{msg}"
-    @errors << error_string
   end
 
 # ====================================================================
@@ -135,78 +129,21 @@ class PlaybillExtractor
     }
   end
 
-  # def clean_hash(h)
-  #   h.keys.each do |k|
-  #     val = h[k]
-  #     next (h.delete(k)) if val.nil? || val.empty?
-
-  #     case val
-  #     when Hash
-  #       h.delete(k) if clean_hash(val).empty?
-  #     when Array
-  #       val.each do |e|
-  #       if e.nil? || e.empty?
-  #         val.delete(e)
-  #       elsif e.is_a?(Hash)
-  #         val.delete(e) if clean_hash(e).empty?
-  #       end
-  #     end
-  #     when String
-  #       val.strip.empty? && h.delete(k)
-  #     end
-  #   end
-  # end
-
-
-  def clean_hash(hash)
-    for_deletion = []
-    hash.each do |key, val|
-      case val
-      when Hash
-        for_deletion << key if clean_hash(val).empty?
-      when Array
-        for_deletion << key if clean_array(val).empty?
-      when String
-        for_deletion << key if val.strip.empty?
-      when NilClass
-        for_deletion << key
-      end
-    end
-    for_deletion.each{ |k| hash.delete(k)}
-    hash
-  end
-
-  def clean_array(array)
-    for_deletion = []
-    array.each do |entry|
-      case entry
-      when Hash
-        for_deletion << entry if clean_hash(entry).empty?
-      when Array
-        for_deletion << entry if clean_array(entry).empty?
-      when String
-        for_deletion << entry if entry.strip.empty?
-      end
-    end
-    for_deletion.each{ |e| array.delete(e)}
-    array.compact
-  end
-
   def get_result
     data = combine_data
     @errors.empty? ? ExtractorResult.new(clean_hash(data)) : @errors
   end
 end
 
-ExtractorResult = Struct.new(:result) do
-  def to_h
-    result
-  end
+# ExtractorResult = Struct.new(:result) do
+#   def to_h
+#     result
+#   end
 
-  def to_json
-    JSON.pretty_generate(result)
-  end
-end
+#   def to_json
+#     JSON.pretty_generate(result)
+#   end
+# end
 
 
 

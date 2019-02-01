@@ -24,33 +24,43 @@
 - :attr: creator
   :headings:
   - Creator[65233]
-- :attr: creator_uri
+  :multivalued: true
+  :value_sep: '|'
+- :attr: creator_URI
   :headings:
   - Creator URI
+  :multivalued: true
+  :value_sep: '|'
 - :attr: title
   :headings:
   - Title[65235]
-- :attr: title_uri
+- :attr: title_URI
   :headings:
   - Title URI
 - :attr: description
   :headings:
   - Description[65254]
-- :attr: description_uri
+- :attr: description_URI
   :headings:
   - Description URI
+  :multivalued: true
+  :value_sep: '|'
 - :attr: actor_character
   :headings:
   - Actor/Character[65457]
-- :attr: actor_character_uri
+- :attr: actor_character_URI
   :headings:
-  - Actor/Character URI
+  - About/Character URI ######## Actor?
 - :attr: related_agent
   :headings:
   - Related Agent[65459]
-- :attr: related_agent_uri
+  :multivalued: true
+  :value_sep: '|'
+- :attr: related_agent_URI
   :headings:
   - Related Agent URI
+  :multivalued: true
+  :value_sep: '|'
 - :attr: play
   :headings:
   - Play[65460]
