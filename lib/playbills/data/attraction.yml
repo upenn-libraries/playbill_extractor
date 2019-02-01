@@ -5,16 +5,16 @@
 - :attr: title
   :headings:
   - 'Title'
-  :heading_required: true
+# :heading_required: true
 - :attr: date_standard
   :headings:
   - 'Date Standard'
-  :heading_required: true
+# :heading_required: true
 - :attr: date_as_written
   :headings:
   - 'Date as Written'
-  :heading_required: true
+# :heading_required: true
 - :attr: headliner
   :headings:
   - 'headliner'
-  :heading_required: true
+# :heading_required: true

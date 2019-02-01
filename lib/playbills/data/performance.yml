@@ -23,7 +23,6 @@
   :headings:
   - 'Other'
   :heading_required: true
-
 - :attr: '@id_contrib'
   :headings:
   - 'Contributor URI'
@@ -32,7 +31,7 @@
   :headings:
    - 'Type'
   :heading_required: true
-  :requirement: required
+ # :requirement: required
 - :attr: contributor_name
   :headings:
   - 'Name'
