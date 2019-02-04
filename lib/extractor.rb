@@ -19,7 +19,7 @@ class XlsxDataExtractor
       case val
       when Hash
         for_deletion << key if clean_hash(val).empty?
-      when Arrays
+      when Array
         for_deletion << key if clean_array(val).empty?
       when String
         for_deletion << key if val.strip.empty?

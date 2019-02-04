@@ -1,6 +1,7 @@
 require_relative '../lib/playbills/playbill_extractor'
 
 folder_path = ARGV.first
+folder_path += ?/ unless /[\/\\]/ === folder_path[-1]
 
 abort 'No folder given'                   unless folder_path
 abort "No folder found at #{folder_path}" unless Dir.exist?(folder_path)
@@ -22,6 +23,7 @@ xlsx_files.each_with_index do |file, i|
     puts 'extracted data'
   else
   	errors << [file, result]
+    puts "FOUND #{result.length} ERRORS"
   end
 end
 

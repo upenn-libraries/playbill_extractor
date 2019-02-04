@@ -55,7 +55,7 @@ class PlaybillExtractor < XlsxDataExtractor
   def extract_event
     data = read_data('event')
     return {} unless data
-    details = data.first
+    details = data.first || {}
 
     formatted_details = {
       date: extract_subhash(details, %i(date_standard date_as_written)),
@@ -125,21 +125,6 @@ class PlaybillExtractor < XlsxDataExtractor
     @errors.empty? ? ExtractorResult.new(clean_hash(data)) : @errors
   end
 end
-
-# ExtractorResult = Struct.new(:result) do
-#   def to_h
-#     result
-#   end
-
-#   def to_json
-#     JSON.pretty_generate(result)
-#   end
-# end
-
-
-
-
-
 
 
 
